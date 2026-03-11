@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Products from '../components/Products';
+import { ApiClient } from '../../api';
 
 const Men = () => {
     const [products, setProducts] = useState([]);
@@ -11,7 +12,9 @@ const Men = () => {
         let isMounted = true;
         const fetchData = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/category/men`);
+
+                const res = await ApiClient.get('/category/men')
+                console.log('data', res.data)
                 if (isMounted) {
                     const sorted = res.data.sort((a, b) => parseInt(b.reviews) - parseInt(a.reviews))
                     setProducts(sorted);
